@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lalu Prasath G — Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F172A;
+    --panel:#151F38;
+    --panel-2:#1B2846;
+    --line:#28365A;
+    --text:#E7ECF6;
+    --muted:#93A0BC;
+    --accent:#F2B705;
+    --accent-dim:#8A6C1F;
+    --blue:#38BDF8;
+    --radius:4px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.mono-label{font-family:'Space Grotesk',sans-serif;}
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:20;
+    background:rgba(15,23,42,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .brand{font-weight:700;font-size:1.05rem;letter-spacing:0.2px;}
+  .brand span{color:var(--accent);}
+  .navlinks{display:flex;gap:26px;font-size:0.92rem;color:var(--muted);}
+  .navlinks a:hover{color:var(--text);}
+
+  /* HERO */
+  header.hero{padding:88px 0 64px;border-bottom:1px solid var(--line);}
+  .hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:end;}
+  .eyebrow{color:var(--accent);font-size:0.9rem;margin:0 0 14px;}
+  .hero h1{font-size:clamp(2.1rem,4.5vw,3.2rem);line-height:1.12;margin:0 0 18px;font-weight:600;}
+  .hero p.lede{color:var(--muted);font-size:1.05rem;max-width:52ch;margin:0 0 28px;}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;padding:12px 22px;border-radius:var(--radius);
+    font-size:0.92rem;font-weight:600;text-decoration:none;
+  }
+  .btn-primary{background:var(--accent);color:#1A1300;}
+  .btn-primary:hover{background:#ffcf2e;}
+  .btn-outline{border:1px solid var(--line);color:var(--text);}
+  .btn-outline:hover{border-color:var(--muted);}
+
+  .stat-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;
+  }
+  .stat-card + .stat-card{margin-top:14px;}
+  .stat-num{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--blue);}
+  .stat-lbl{color:var(--muted);font-size:0.85rem;margin-top:2px;}
+
+  /* SECTION HEADS */
+  section{padding:64px 0;border-bottom:1px solid var(--line);}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:34px;flex-wrap:wrap;gap:10px;}
+  .sec-head h2{font-size:1.5rem;margin:0;font-weight:600;}
+  .sec-num{color:var(--muted);font-family:'Space Grotesk',sans-serif;font-size:0.9rem;}
+
+  /* ABOUT */
+  .about-body{color:var(--muted);max-width:70ch;font-size:1.02rem;}
+  .about-body strong{color:var(--text);font-weight:600;}
+
+  /* SKILLS - dashboard tiles */
+  .skill-board{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .skill-tile{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px;
+  }
+  .skill-tile h3{margin:0 0 10px;font-size:0.85rem;color:var(--accent);text-transform:none;font-weight:600;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    background:var(--panel-2);border:1px solid var(--line);
+    padding:5px 11px;border-radius:3px;font-size:0.84rem;color:var(--text);
+  }
+
+  /* PROJECTS */
+  .project{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 28px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start;
+  }
+  .project + .project{margin-top:18px;}
+  .project h3{margin:0 0 8px;font-size:1.15rem;}
+  .project ul{margin:12px 0 0;padding-left:18px;color:var(--muted);}
+  .project ul li{margin-bottom:6px;}
+  .project .tag-row{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;}
+  .project a.live{white-space:nowrap;color:var(--blue);font-weight:600;text-decoration:none;font-size:0.9rem;}
+  .project a.live:hover{text-decoration:underline;}
+
+  /* TIMELINE (education + training) */
+  .timeline{border-left:2px solid var(--line);padding-left:26px;}
+  .tl-item{position:relative;padding-bottom:28px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:'';position:absolute;left:-32px;top:4px;width:10px;height:10px;border-radius:50%;
+    background:var(--accent);
+  }
+  .tl-item h3{margin:0 0 4px;font-size:1.02rem;}
+  .tl-item .tl-meta{color:var(--muted);font-size:0.88rem;margin-bottom:6px;}
+  .tl-item p{color:var(--muted);margin:0;font-size:0.94rem;}
+
+  /* CERTS */
+  .cert-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .cert{border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;background:var(--panel);font-size:0.92rem;color:var(--muted);}
+  .cert strong{color:var(--text);display:block;margin-bottom:3px;font-size:0.95rem;}
+
+  /* CONTACT / FOOTER */
+  footer{padding:64px 0 48px;}
+  .contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:start;}
+  footer h2{font-size:1.7rem;margin:0 0 12px;}
+  footer p{color:var(--muted);max-width:46ch;}
+  .link-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+  .link-list a{text-decoration:none;color:var(--text);font-size:0.98rem;display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px;}
+  .link-list a span{color:var(--muted);font-size:0.85rem;}
+  .link-list a:hover span{color:var(--accent);}
+  .fine{margin-top:40px;color:var(--muted);font-size:0.82rem;}
+
+  @media(max-width:820px){
+    .hero-grid{grid-template-columns:1fr;}
+    .skill-board{grid-template-columns:1fr 1fr;}
+    .cert-list{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .project{grid-template-columns:1fr;}
+  }
+  @media(max-width:560px){
+    .skill-board{grid-template-columns:1fr;}
+    .navlinks{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Lalu<span>Prasath</span>.G</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Aspiring Data Analyst</p>
+      <h1>I turn raw spreadsheets into decisions someone can act on.</h1>
+      <p class="lede">B.Tech Information Technology graduate focused on data preprocessing, visualization and reporting — building dashboards and analyses that surface the trend hiding in the dataset.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:laluprasath0808@gmail.com">Email me</a>
+        <a class="btn btn-outline" href="https://github.com/laluprasathg" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/in/laluprasath08" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div>
+      <div class="stat-card"><div class="stat-num">8.13</div><div class="stat-lbl">CGPA, B.Tech Information Technology</div></div>
+      <div class="stat-card"><div class="stat-num">4wk</div><div class="stat-lbl">Data Analytics internship, Flash InfoLabs</div></div>
+      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-lbl">Tools: Excel, Power BI, Python, SQL, Pandas</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head"><h2>About</h2><span class="sec-num">01</span></div>
+    <p class="about-body">I'm a <strong>B.Tech Information Technology</strong> graduate (Sri Balaji Chockalingam Engineering College, Anna University) with hands-on practice cleaning, joining and visualizing real datasets. During a <strong>Data Analytics internship at Flash InfoLabs</strong> and a training program at <strong>SBV Technology, Arcot</strong>, I worked through the full analyst workflow — pulling data with SQL, shaping it in Python and Excel, and presenting it as dashboards in Power BI that a non-technical stakeholder can actually read. I'm looking for a Data Analyst or AI/ML role based in Chennai or nearby, open to relocating.</p>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><h2>Skills</h2><span class="sec-num">02</span></div>
+    <div class="skill-board">
+      <div class="skill-tile">
+        <h3>Languages</h3>
+        <div class="chip-row"><span class="chip">Python</span><span class="chip">SQL</span></div>
+      </div>
+      <div class="skill-tile">
+        <h3>Databases</h3>
+        <div class="chip-row"><span class="chip">MySQL</span><span class="chip">Oracle SQL</span><span class="chip">PostgreSQL</span></div>
+      </div>
+      <div class="skill-tile">
+        <h3>Analytics &amp; Visualization</h3>
+        <div class="chip-row"><span class="chip">Excel</span><span class="chip">Power BI</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Matplotlib</span></div>
+      </div>
+      <div class="skill-tile">
+        <h3>Tooling</h3>
+        <div class="chip-row"><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Google Colab</span><span class="chip">Power BI Desktop</span></div>
+      </div>
+      <div class="skill-tile">
+        <h3>Workflow</h3>
+        <div class="chip-row"><span class="chip">Data cleaning</span><span class="chip">Joins &amp; aggregation</span><span class="chip">Dashboarding</span></div>
+      </div>
+      <div class="skill-tile">
+        <h3>Soft skills</h3>
+        <div class="chip-row"><span class="chip">Problem solving</span><span class="chip">Communication</span><span class="chip">Team collaboration</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head"><h2>Projects</h2><span class="sec-num">03</span></div>
+
+    <div class="project">
+      <div>
+        <h3>Engineering Students Journey — Data Analytics Dashboard</h3>
+        <ul>
+          <li>Analyzed student performance data end-to-end using Python, SQL, Excel and Power BI.</li>
+          <li>Cleaned and joined multi-source data, then built a dashboard that surfaces performance trends across the student journey.</li>
+        </ul>
+        <div class="tag-row"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Excel</span><span class="chip">Power BI</span></div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div>
+        <h3>Retail Sales &amp; Growth Dashboard (Boot Camp Project)</h3>
+        <ul>
+          <li>Built a retail sales and growth dashboard in Power BI as part of the NoviTech R&amp;D boot camp.</li>
+          <li>Modeled sales data to highlight growth patterns for reporting.</li>
+        </ul>
+        <div class="tag-row"><span class="chip">Power BI</span><span class="chip">Data Modeling</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head"><h2>Education &amp; Training</h2><span class="sec-num">04</span></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <h3>B.Tech, Information Technology</h3>
+        <div class="tl-meta">Sri Balaji Chockalingam Engineering College, Anna University · 2022 – 2026</div>
+        <p>CGPA 8.13</p>
+      </div>
+      <div class="tl-item">
+        <h3>Data Analytics Internship</h3>
+        <div class="tl-meta">Flash InfoLabs · June – July 2025</div>
+        <p>Applied end-to-end analytics workflow on real datasets.</p>
+      </div>
+      <div class="tl-item">
+        <h3>Data Analytics Training</h3>
+        <div class="tl-meta">SBV Technology Pvt. Ltd., Arcot</div>
+        <p>Hands-on training in Excel, Python, SQL and Power BI — data cleaning, joins, aggregations and visualization.</p>
+      </div>
+      <div class="tl-item">
+        <h3>HSC (12th) &amp; SSLC (10th)</h3>
+        <div class="tl-meta">Govt. Boys Hr. Sec. School, Kalambur · 72% (2022), 76.8% (2020)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="sec-head"><h2>Certifications</h2><span class="sec-num">05</span></div>
+    <div class="cert-list">
+      <div class="cert"><strong>HackerRank SQL — Basic &amp; Intermediate</strong>Verified problem-solving certification.</div>
+      <div class="cert"><strong>Data Analytics Certificate</strong>SBV Technology.</div>
+      <div class="cert"><strong>Data Analytics Master Class Certification</strong>NoviTech R&amp;D.</div>
+      <div class="cert"><strong>Retail Sales &amp; Growth Dashboard Boot Camp</strong>Power BI · NoviTech R&amp;D.</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <h2>Let's talk data.</h2>
+      <p>Open to Data Analyst and AI/ML roles in Chennai and nearby, willing to relocate. Reach out by email, phone, or on any platform below.</p>
+    </div>
+    <ul class="link-list">
+      <li><a href="mailto:laluprasath0808@gmail.com">Email<span>laluprasath0808@gmail.com</span></a></li>
+      <li><a href="tel:+919344953700">Phone<span>+91 93449 53700</span></a></li>
+      <li><a href="https://github.com/laluprasathg" target="_blank" rel="noopener">GitHub<span>laluprasathg</span></a></li>
+      <li><a href="https://www.linkedin.com/in/laluprasath08" target="_blank" rel="noopener">LinkedIn<span>laluprasath08</span></a></li>
+      <li><a href="https://leetcode.com/u/laluprasathg/" target="_blank" rel="noopener">LeetCode<span>laluprasathg</span></a></li>
+      <li><a href="https://www.hackerrank.com/profile/laluprasath0808" target="_blank" rel="noopener">HackerRank<span>laluprasath0808</span></a></li>
+    </ul>
+  </div>
+  <div class="wrap fine">© Lalu Prasath G — Kalambur, Arni, Tamil Nadu.</div>
+</footer>
+
+</body>
+</html>
